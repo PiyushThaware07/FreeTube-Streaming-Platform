@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { BiMenu } from "react-icons/bi"
 import { IoLogoYoutube, IoIosSearch } from "react-icons/io"
 import { GrUploadOption } from "react-icons/gr"
-import { IoNotificationsCircleOutline, IoSearchCircleOutline,IoCloseSharp } from "react-icons/io5"
+import { IoNotificationsCircleOutline, IoSearchCircleOutline, IoCloseSharp } from "react-icons/io5"
 import { PiUserCircleDuotone } from "react-icons/pi"
 // React Router Dom
 import { Link, useNavigate } from 'react-router-dom'
@@ -30,7 +30,7 @@ export default function Navbar(props) {
         </div>
         <div className="navbar-section-2 h-[40px] hidden md:flex flex-nowrap flex-1 md:px-12 lg:px-24">
           <form action="" className='flex flex-nowrap items-center h-full flex-auto' onSubmit={handleSubmit}>
-            <input type="text" id='search_query' placeholder='Search here...' className='flex-1 h-full border-[2px] border-e-0 border-slate-600 rounded-s-full ps-6 focus:outline-none' onChange={(e) => setInputValue(e.target.value)} required />
+            <input type="text" id='query' placeholder='Search here...' className='flex-1 h-full border-[2px] border-e-0 border-slate-600 rounded-s-full ps-6 focus:outline-none' onChange={(e) => setInputValue(e.target.value)} required />
             <button type='submit' className='h-full px-4 border-[2px] border-slate-600 bg-slate-200 rounded-e-full'><IoIosSearch size={23} /></button>
           </form>
         </div>
@@ -45,9 +45,9 @@ export default function Navbar(props) {
         </div>
       </div>
 
-      <form action='' className={`${toggleSearch ? 'flex' : 'hidden'} flex-nowrap items-center justify-between flex-1 px-3 sm:px-8 py-3 h-[75px] absolute top-0 left-0 z-50 w-full`}>
+      <form action='' className={`${toggleSearch ? 'flex' : 'hidden'} flex-nowrap items-center justify-between flex-1 px-3 sm:px-8 py-3 h-[75px] absolute top-0 left-0 z-50 w-full`} onSubmit={handleSubmit}>
         <button type='button' className='h-full px-4 border-[2px] border-slate-600 bg-slate-200 rounded-s-full' onClick={handleToggleSearch}><IoCloseSharp size={23} /></button>
-        <input type="text" id='search_query' placeholder='Search here...' className='flex-1 h-full border-[2px] border-x-0 border-slate-600 ps-6 focus:outline-none' onChange={(e) => setInputValue(e.target.value)} required />
+        <input type="text" id='query' placeholder='Search here...' className='flex-1 h-full border-[2px] border-x-0 border-slate-600 ps-6 focus:outline-none' onChange={(e) => setInputValue(e.target.value)} required />
         <button type='submit' className='h-full px-4 border-[2px] border-slate-600 bg-slate-200 rounded-e-full'><IoIosSearch size={23} /></button>
       </form>
     </>
