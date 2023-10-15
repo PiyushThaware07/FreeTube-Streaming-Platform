@@ -45,10 +45,10 @@ export default function Navbar(props) {
         </div>
       </div>
 
-      <form action='' className={`${toggleSearch ? 'flex' : 'hidden'} flex-nowrap items-center justify-between flex-1 px-3 sm:px-8 py-3 h-[75px] absolute top-0 left-0 z-50 w-full`} onSubmit={handleSubmit}>
-        <button type='button' className='h-full px-4 border-[2px] border-slate-600 bg-slate-200 rounded-s-full' onClick={handleToggleSearch}><IoCloseSharp size={23} /></button>
+      <form action='' className={`${toggleSearch ? 'flex' : 'hidden'} flex-nowrap items-center justify-between flex-1 px-2 sm:px-8 py-3 h-[75px] absolute top-0 left-0 z-50 w-full`} onSubmit={handleSubmit}>
+        <button type='button' className='h-full px-3 border-[2px] border-slate-600 bg-slate-200 rounded-s-full' onClick={handleToggleSearch}><IoCloseSharp size={23} /></button>
         <input type="text" id='query' placeholder='Search here...' className='flex-1 h-full border-[2px] border-x-0 border-slate-600 ps-6 focus:outline-none' onChange={(e) => setInputValue(e.target.value)} required />
-        <button type='submit' className='h-full px-4 border-[2px] border-slate-600 bg-slate-200 rounded-e-full'><IoIosSearch size={23} /></button>
+        <button type='submit' className='h-full px-3 border-[2px] border-slate-600 bg-slate-200 rounded-e-full'><IoIosSearch size={23} /></button>
       </form>
     </>
   )
