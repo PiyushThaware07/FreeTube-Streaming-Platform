@@ -1,55 +1,71 @@
-import React, { useEffect, useState } from 'react'
-// Library 
-import moment from 'moment'
+import React, { useEffect, useState } from 'react';
+import moment from 'moment';
 import numeral from 'numeral';
 import { useParams } from 'react-router-dom';
 
-
 export default function SearchItem(props) {
-    const { query } = useParams()
+    const { query } = useParams();
+
     // ChannelIcon Handling
-    const [channelIcon, setChannelIcon] = useState(null)
+    const [channelIcon, setChannelIcon] = useState(null);
+
     async function handleChannelIcon() {
-        // const ApiKey = "AIzaSyB23J1V_QWm8j-dYePTudg8mEke6d0GaFc";
-        const ApiKey = import.meta.env.VITE_REACT_APP_API_KEY;
-        const url = `https://youtube.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${props.videoSnippet.channelId}&key=${ApiKey}`
-        const fetchData = fetch(url);
-        const request = await fetchData;
-        const response = await request.json();
-        setChannelIcon(response.items[0].snippet.thumbnails.default.url)
-    }
-    useEffect(() => {
-        handleChannelIcon()
-    }, [query, props.videoSnippet.channelId])
-
-
-    // Fetch Single Video Data -----------------------------------------------
-    const [duration, setDuration] = useState(null)
-    const [views, setViews] = useState(null)
-    async function handleSingleVideo() {
         try {
-            // const ApiKey = "AIzaSyB23J1V_QWm8j-dYePTudg8mEke6d0GaFc";
-            const ApiKey = import.meta.env.VITE_REACT_APP_API_KEY;
-            const url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${props.videoId.videoId}&maxResults=100&key=${ApiKey}`
-            const fetchData = fetch(url);
-            const request = await fetchData;
-            const response = await request.json();
-            // Setting Data
-            setDuration(response.items[0].contentDetails.duration)
-            setViews(response.items[0].statistics.viewCount)
-        } catch {
-            
+            const apiKey = import.meta.env.VITE_REACT_APP_API_KEY;
+            const url = `https://www.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${props.videoSnippet.channelId}&key=${apiKey}`;
+            const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            const data = await response.json();
+            setChannelIcon(data.items[0].snippet.thumbnails.default.url);
+        } catch (error) {
+            console.error('Error fetching channel icon:', error);
+            // Handle the error here, e.g., show an error message to the user
         }
     }
-    useEffect(() => {
-        handleSingleVideo()
-    }, [query, props.videoId.videoId])
 
+    useEffect(() => {
+        handleChannelIcon();
+    }, [query, props.videoSnippet.channelId]);
+
+    // Single Video Data
+    const [duration, setDuration] = useState(null);
+    const [views, setViews] = useState(null);
+
+    async function handleSingleVideo() {
+        try {
+            if (props.videoId && props.videoId.videoId) {
+                const apiKey = import.meta.env.VITE_REACT_APP_API_KEY;
+                const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${props.videoId.videoId}&key=${apiKey}`;
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+
+                if (data.items && data.items.length > 0) {
+                    setDuration(data.items[0].contentDetails.duration);
+                    setViews(data.items[0].statistics.viewCount);
+                } else {
+                    console.error('No video data found for videoId:', props.videoId.videoId);
+                }
+            } else {
+                console.error('Invalid videoId data:', props.videoId);
+            }
+        } catch (error) {
+            console.error('Error fetching single video data:', error);
+            // Handle the error here, e.g., show an error message to the user
+        }
+    }
+
+    useEffect(() => {
+        handleSingleVideo();
+    }, [query, props.videoId]);
 
     // Duration handling
-    const seconds = moment.duration(duration).asSeconds()
-    const formated_duration = moment.utc(seconds * 1000).format("mm:ss")
-
+    const seconds = moment.duration(duration).asSeconds();
+    const formated_duration = moment.utc(seconds * 1000).format('mm:ss');
 
     return (
         <>
@@ -65,25 +81,19 @@ export default function SearchItem(props) {
                             <h1 className='text-sm sm:text-md font-semibold text-slate-500 sm:hidden inline'>{props.videoSnippet.channelTitle}</h1>
                             <h1 className='text-sm sm:text-md font-semibold text-slate-500'>{numeral(views).format("0.a")} views . <span className='capitalize'>{moment(props.videoSnippet.publishedAt).fromNow()}</span></h1>
 
-
-
                             <div className="channel-details hidden sm:flex flex-nowrap items-center gap-3 my-3">
                                 <div className="channel_thumbnail h-[26px] w-[26px] bg-blue-500 rounded-full" style={{ backgroundImage: `url('${channelIcon}')`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}></div>
                                 <div className="channel_name text-sm font-semibold">{props.videoSnippet.channelTitle}</div>
                             </div>
 
-
-
                             <div className="">
                                 <hr className='my-0 sm:my-2' />
                                 <h1 className='text-[13px] font-semibold hidden sm:inline'>{props.videoSnippet.description}</h1>
                             </div>
-
-
                         </div>
                     </div>
                 </div>
             </div>
         </>
-    )
+    );
 }

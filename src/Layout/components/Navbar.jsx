@@ -13,7 +13,8 @@ export default function Navbar(props) {
   const navigate = useNavigate();
   function handleSubmit(event) {
     event.preventDefault();
-    navigate(`/search/${inputValue}/`)
+    navigate(`/search/${inputValue}/`);
+    setToggleSearch(false); // Close the search bar after searching
   }
 
   const [toggleSearch, setToggleSearch] = useState(false);

@@ -8,13 +8,19 @@ import { setVideos } from '../../Redux/Slices/VideoSlice';
 export default function MainList() {
   const dispatch = useDispatch();
   async function fetchVideos() {
-    const ApiKey = import.meta.env.VITE_REACT_APP_API_KEY;
-    const url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=100&regionCode=US&key=${ApiKey}`;
-    const fetchData = fetch(url);
-    const request = await fetchData;
-    const response = await request.json();
-    // console.log("All Videos : ", response.items);
-    dispatch(setVideos(response.items));
+    try {
+      const apiKey = import.meta.env.VITE_REACT_APP_API_KEY;
+      const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=100&regionCode=US&key=${apiKey}`;
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      dispatch(setVideos(data.items));
+    } catch (error) {
+      console.error('Error fetching videos:', error);
+      // Handle the error here, e.g., show an error message to the user
+    }
   }
   useEffect(() => {
     fetchVideos();

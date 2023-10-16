@@ -13,27 +13,34 @@ import { useDispatch, useSelector } from 'react-redux'
 import { setVideos } from '../../Redux/Slices/VideoSlice'
 
 export default function SearchList() {
-  // Geeting Url Value
-  const { query } = useParams()
+  // Getting URL Value
+  const { query } = useParams();
 
-  // Fetch Search Data 
   const dispatch = useDispatch();
+
   async function fetchVideos() {
-    // const ApiKey = "AIzaSyB23J1V_QWm8j-dYePTudg8mEke6d0GaFc";
-    const ApiKey = import.meta.env.VITE_REACT_APP_API_KEY;
-    const url = `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=100&q=${query}&key=${ApiKey}`;
-    const fetchData = fetch(url);
-    const request = await fetchData;
-    const response = await request.json();
-    console.log("Search Videos : ", response.items);
-    dispatch(setVideos(response.items));
+    try {
+      const apiKey = import.meta.env.VITE_REACT_APP_API_KEY;
+      const url = `https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=100&q=${query}&key=${apiKey}`;
+      const response = await fetch(url);
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.json();
+      console.log('Search Videos:', data.items);
+      dispatch(setVideos(data.items));
+    } catch (error) {
+      console.error('Error fetching videos:', error);
+      // Handle the error here, e.g., show an error message to the user
+    }
   }
+
   useEffect(() => {
     fetchVideos();
   }, [query, dispatch]);
 
-
-  // Retrieve the videos from the Redux store
   const videos = useSelector((state) => state.videoReducer.videoArray);
 
 
