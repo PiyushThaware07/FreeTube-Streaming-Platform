@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 // Icons
 import { LuShare2 } from "react-icons/lu"
 import { FaRegThumbsUp, FaRegThumbsDown } from "react-icons/fa"
+import { AiOutlineDownCircle, AiOutlineUpCircle } from "react-icons/ai"
 // Library
 import ReactShowMoreText from 'react-show-more-text'
 import moment from 'moment'
@@ -26,6 +27,11 @@ export default function WatchItem(props) {
     }, [video_id])
 
 
+    // Handle Comment Section =========================
+    const [toggleComment, setToggleComment] = useState(false);
+    function handleToggleComment() {
+        setToggleComment((value) => !value)
+    }
 
 
     return (
@@ -56,7 +62,7 @@ export default function WatchItem(props) {
                                     <button className='btn-join border-[1.2px] border-slate-500 font-semibold text-sm px-5 py-2 rounded-full hidden sm:inline'>Join</button>
                                     <button className='btn-subscribe bg-black text-white font-semibold text-[12px] sm:text-sm px-5 py-2 rounded-full'>Subscriber</button>
                                     <div className="hidden sm:flex flex-nowrap items-center">
-                                        <button className='btn-like bg-slate-200 font-semibold text-sm px-5 py-2 rounded-s-full flex flex-nowrap items-center gap-1'><FaRegThumbsUp className='mt-1 lg:mt-0' /><span className='hidden lg:inline'>{props.videoDetails.statistics.likeCount ? numeral(props.videoDetails.statistics.likeCount ).format("0.a") : 'Like'}</span></button>
+                                        <button className='btn-like bg-slate-200 font-semibold text-sm px-5 py-2 rounded-s-full flex flex-nowrap items-center gap-1'><FaRegThumbsUp className='mt-1 lg:mt-0' /><span className='hidden lg:inline'>{props.videoDetails.statistics.likeCount ? numeral(props.videoDetails.statistics.likeCount).format("0.a") : 'Like'}</span></button>
                                         <button className='btn-dislike bg-slate-200 font-semibold text-sm px-5 py-2 rounded-e-full flex flex-nowrap items-center gap-1 border-s border-slate-400'><FaRegThumbsDown className='mt-1' /><span className='hidden lg:inline'>Dislike</span></button>
                                     </div>
                                 </div>
@@ -80,18 +86,18 @@ export default function WatchItem(props) {
                                 <div className="watch-section-2 mt-5">
                                     <div className="text-[13px] font-medium">
                                         <div className="video-tag mb-3">
-                                            {
-                                                props.videoDetails.snippet.tags.map((tag, index) => {
-                                                    return (
-                                                        <span key={index} className='me-3'>#{tag}</span>
-                                                    )
-                                                })
-                                            }
+                                            {props.videoDetails && props.videoDetails.snippet && props.videoDetails.snippet.tags && Array.isArray(props.videoDetails.snippet.tags) ? (
+                                                props.videoDetails.snippet.tags.map((tag, index) => (
+                                                    <span key={index} className='me-3'>#{tag}</span>
+                                                ))
+                                            ) : (
+                                                <span>No tags available</span>
+                                            )}
                                         </div>
                                         <ReactShowMoreText lines={3} more={<div className='mt-3'><span className="text-blue-600">Show More</span></div>} less={<div className='mt-3'><span className="text-blue-600">Show Less</span></div>}>
-                                            <p>
+                                            <div>
                                                 {props.videoDetails && props.videoDetails.snippet.localized ? props.videoDetails.snippet.localized.description : 'N/A'}
-                                            </p>
+                                            </div>
                                         </ReactShowMoreText>
                                     </div>
                                 </div>
@@ -102,9 +108,34 @@ export default function WatchItem(props) {
                                 <div className="">
                                     <h1 className='text-[13px] font-medium'>Comments : {props.videoDetails && props.videoDetails.statistics ? props.videoDetails.statistics.commentCount : 'N/A'}</h1>
                                     <hr className='my-3' />
+                                    {/* Comment Section => 1 for web */}
+                                    <div className={`"w-full hidden md:flex flex-nowrap items-start gap-4 px-3 mb-5"`}>
+                                        <div className="mt-1 user-profile h-[40px] w-[40px] p-6 bg-slate-700 rounded-full"></div>
+                                        <div className="">
+                                            <h1 className='text-sm font-[600]'>@username <span className='ms-3 text-[10px] font-normal'>1 Month Ago</span> </h1>
+                                            <small className='text-[12px]'>User comment : Lorem ipsum dolor sit amet consectetur adipisicing elit.Eos veniam dolores repellat aspernatur officia.</small>
+                                        </div>
+                                    </div>
+
+                                    {/* Comment Section => 2 for Android */}
+                                    <div className={`${toggleComment ? "" : "hidden"}`}>
+                                        <div className={`"w-full flex md:hidden flex-nowrap items-start gap-4 px-3 mb-5"`}>
+                                            <div className="mt-1 user-profile h-[40px] w-[40px] p-6 bg-slate-700 rounded-full"></div>
+                                            <div className="">
+                                                <h1 className='text-sm font-[600]'>@username <span className='ms-3 text-[10px] font-normal'>1 Month Ago</span> </h1>
+                                                <small className='text-[12px]'>User comment : Lorem ipsum dolor sit amet consectetur adipisicing elit.Eos veniam dolores repellat aspernatur officia.</small>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <button className='show-comments bg-slate-300 px-5 py-2 text-sm rounded-full md:hidden block mx-auto my-6' onClick={handleToggleComment}>{toggleComment ? (<span className='flex flex-nowrap items-center gap-2'><AiOutlineUpCircle />Hide Comments</span>) : (<span className='flex flex-nowrap items-center gap-2'><AiOutlineDownCircle />Show Comments</span>)}</button>
+                                    <hr className='mt-5' />
                                 </div>
+
+
                             </div>
                         </div>
+
                 }
             </div>
         </>
