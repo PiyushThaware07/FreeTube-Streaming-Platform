@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import numeral from 'numeral';
+import { Link } from 'react-router-dom';
+
 
 export default function Video(props) {
     // Duration handling
@@ -43,17 +45,20 @@ export default function Video(props) {
 
     return (
         <div className="video-card p-5">
-            <div
-                className="video-thumbnail h-[180px] rounded-xl hover:rounded-none relative"
-                style={{
-                    background: `url('${props.videoSnippet?.thumbnails.standard?.url || ''}') no-repeat center`,
-                    backgroundSize: 'cover'
-                }}
-            >
-                <div className="text-[11px] font-semibold text-white bg-black inline absolute bottom-3 right-3 p-1">
-                    {formatted_duration}
+            <Link to={`/watch/${props.videoID}/`} >
+                <div
+                    className="video-thumbnail h-[180px] rounded-xl hover:rounded-none relative"
+                    style={{
+                        background: `url('${props.videoSnippet?.thumbnails.standard?.url || ''}') no-repeat center`,
+                        backgroundSize: 'cover'
+                    }}
+                >
+                    <div className="text-[11px] font-semibold text-white bg-black inline absolute bottom-3 right-3 p-1">
+                        {formatted_duration}
+                    </div>
                 </div>
-            </div>
+            </Link>
+
             <div className="video-content flex flex-nowrap items-start flex-1 mt-3">
                 <div
                     className="video-channel-thumbnail h-[40px] w-[40px] rounded-full ms-2"

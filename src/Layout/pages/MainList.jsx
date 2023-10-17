@@ -1,33 +1,26 @@
 import React, { useEffect } from 'react';
-// Components
-import Video from '../components/Video';
-// Redux Setup
 import { useDispatch, useSelector } from 'react-redux';
 import { setVideos } from '../../Redux/Slices/VideoSlice';
+import Video from '../components/Video'
 
 export default function MainList() {
   const dispatch = useDispatch();
+  const videos = useSelector((state) => state.videoReducer.videoArray);
+
   async function fetchVideos() {
     try {
       const apiKey = import.meta.env.VITE_REACT_APP_API_KEY;
       const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=100&regionCode=US&key=${apiKey}`;
       const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
       const data = await response.json();
       dispatch(setVideos(data.items));
     } catch (error) {
       console.error('Error fetching videos:', error);
-      // Handle the error here, e.g., show an error message to the user
     }
   }
   useEffect(() => {
     fetchVideos();
   }, [dispatch]);
-
-  // Retrieve the videos from the Redux store
-  const videos = useSelector((state) => state.videoReducer.videoArray);
 
   return (
     <div className='main overflow-y-scroll h-[88%]'>
@@ -35,11 +28,11 @@ export default function MainList() {
         {
           videos.map((video) => {
             return (
-              <Video key={video.id} videoContentDetails={video.contentDetails} videoSnippet={video.snippet} videoStatistics={video.statistics} />
+              <Video key={video.id} videoID={video.id} videoContentDetails={video.contentDetails} videoSnippet={video.snippet} videoStatistics={video.statistics} />
             )
           })
         }
       </div>
-    </div >
+    </div>
   );
 }
