@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import numeral from 'numeral';
-import { Link,useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 
 export default function SearchItem(props) {
     const { query } = useParams();
@@ -69,9 +69,12 @@ export default function SearchItem(props) {
     return (
         <>
             <div className="search-card h-auto sm:h-[200px] w-full sm:flex flex-nowrap items-start gap-6 mb-7">
-                <Link to={`/watch/${props.videoId.videoId}/`} className="search-thumbnail h-[160px] sm:h-full w-full sm:w-1/2 lg:w-1/3 rounded-2xl relative" style={{ backgroundImage: `url('${props.videoSnippet.thumbnails.high.url}')`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}>
-                    <div className="absolute bottom-3 right-3 text-sm font-semibold bg-slate-950 text-white p-1">{formated_duration}</div>
+                <Link to={`/watch/${props.videoId.videoId}/`}>
+                    <div className="search-thumbnail h-[160px] sm:h-full w-full sm:w-1/2 lg:w-1/3 rounded-2xl relative" style={{ backgroundImage: `url('${props.videoSnippet.thumbnails.high.url}')`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}>
+                        <div className="absolute bottom-3 right-3 text-sm font-semibold bg-slate-950 text-white p-1">{formated_duration}</div>
+                    </div>
                 </Link>
+
                 <div className="search-video-details mt-1">
                     <div className="flex flex-nowrap items-start gap-2 sm:gap-3">
                         <div className="logo h-[40px] w-[40px] rounded-full sm:hidden p-4 mt-2 sm:mt-0 bg-blue-500" style={{ backgroundImage: `url('${channelIcon}')`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}></div>
