@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import numeral from 'numeral';
-import { useParams } from 'react-router-dom';
+import { Link,useParams } from 'react-router-dom';
 
 export default function SearchItem(props) {
     const { query } = useParams();
@@ -66,18 +66,17 @@ export default function SearchItem(props) {
     // Duration handling
     const seconds = moment.duration(duration).asSeconds();
     const formated_duration = moment.utc(seconds * 1000).format('mm:ss');
-
     return (
         <>
             <div className="search-card h-auto sm:h-[200px] w-full sm:flex flex-nowrap items-start gap-6 mb-7">
-                <div className="search-thumbnail h-[160px] sm:h-full w-full sm:w-1/2 lg:w-1/3 rounded-2xl relative" style={{ backgroundImage: `url('${props.videoSnippet.thumbnails.high.url}')`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}>
+                <Link to={`/watch/${props.videoId.videoId}/`} className="search-thumbnail h-[160px] sm:h-full w-full sm:w-1/2 lg:w-1/3 rounded-2xl relative" style={{ backgroundImage: `url('${props.videoSnippet.thumbnails.high.url}')`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}>
                     <div className="absolute bottom-3 right-3 text-sm font-semibold bg-slate-950 text-white p-1">{formated_duration}</div>
-                </div>
+                </Link>
                 <div className="search-video-details mt-1">
                     <div className="flex flex-nowrap items-start gap-2 sm:gap-3">
                         <div className="logo h-[40px] w-[40px] rounded-full sm:hidden p-4 mt-2 sm:mt-0 bg-blue-500" style={{ backgroundImage: `url('${channelIcon}')`, backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat" }}></div>
                         <div className="flex-1">
-                            <h1 className='text-sm md:text-lg font-bold md:font-semibold flex-1'>{props.videoSnippet.title}</h1>
+                            <Link to={`/watch/${props.videoId.videoId}/`} className='text-sm md:text-lg font-bold md:font-semibold flex-1'>{props.videoSnippet.title}</Link>
                             <h1 className='text-sm sm:text-md font-semibold text-slate-500 sm:hidden inline'>{props.videoSnippet.channelTitle}</h1>
                             <h1 className='text-sm sm:text-md font-semibold text-slate-500'>{numeral(views).format("0.a")} views . <span className='capitalize'>{moment(props.videoSnippet.publishedAt).fromNow()}</span></h1>
 

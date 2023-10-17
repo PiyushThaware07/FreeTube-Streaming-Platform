@@ -56,7 +56,7 @@ export default function WatchItem(props) {
                                     <button className='btn-join border-[1.2px] border-slate-500 font-semibold text-sm px-5 py-2 rounded-full hidden sm:inline'>Join</button>
                                     <button className='btn-subscribe bg-black text-white font-semibold text-[12px] sm:text-sm px-5 py-2 rounded-full'>Subscriber</button>
                                     <div className="hidden sm:flex flex-nowrap items-center">
-                                        <button className='btn-like bg-slate-200 font-semibold text-sm px-5 py-2 rounded-s-full flex flex-nowrap items-center gap-1'><FaRegThumbsUp className='mt-1 lg:mt-0' /><span className='hidden lg:inline'>Like</span></button>
+                                        <button className='btn-like bg-slate-200 font-semibold text-sm px-5 py-2 rounded-s-full flex flex-nowrap items-center gap-1'><FaRegThumbsUp className='mt-1 lg:mt-0' /><span className='hidden lg:inline'>{props.videoDetails.statistics.likeCount ? numeral(props.videoDetails.statistics.likeCount ).format("0.a") : 'Like'}</span></button>
                                         <button className='btn-dislike bg-slate-200 font-semibold text-sm px-5 py-2 rounded-e-full flex flex-nowrap items-center gap-1 border-s border-slate-400'><FaRegThumbsDown className='mt-1' /><span className='hidden lg:inline'>Dislike</span></button>
                                     </div>
                                 </div>
@@ -81,8 +81,8 @@ export default function WatchItem(props) {
                                     <div className="text-[13px] font-medium">
                                         <div className="video-tag mb-3">
                                             {
-                                                props.videoDetails.snippet.tags.map((tag,index)=>{
-                                                    return(
+                                                props.videoDetails.snippet.tags.map((tag, index) => {
+                                                    return (
                                                         <span key={index} className='me-3'>#{tag}</span>
                                                     )
                                                 })
