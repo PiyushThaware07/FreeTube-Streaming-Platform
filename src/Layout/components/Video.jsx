@@ -60,7 +60,7 @@ export default function Video(props) {
             </Link>
 
             <div className="video-content flex flex-nowrap items-start flex-1 mt-3">
-                <div
+                <Link to={`/channel/${props.videoSnippet.channelId}`}
                     className="video-channel-thumbnail h-[40px] w-[40px] rounded-full ms-2"
                     style={{
                         backgroundImage: `url('${channelIcon || ''}')`,
@@ -68,7 +68,7 @@ export default function Video(props) {
                         backgroundPosition: 'center',
                         backgroundRepeat: 'no-repeat'
                     }}
-                ></div>
+                ></Link>
                 <div className="video-details flex-1 ps-4 sm:px-6">
                     <h1 className="text-sm font-semibold">{props.videoSnippet?.title || 'Title N/A'}</h1>
                     <h1 className="text-[12px] font-medium text-gray-600">
