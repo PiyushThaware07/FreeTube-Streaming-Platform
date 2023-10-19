@@ -11,7 +11,7 @@ export default function ChannelList() {
     const navigate = useNavigate();
     // Handle navigation when the buttons are clicked
     const handleNavigation = (navLink) => {
-        navigate(`/channel/${channel_id}/${navLink.toLowerCase()}`);
+        navigate(`/main/channel/${channel_id}/${navLink.toLowerCase()}`);
     };
 
 
@@ -57,7 +57,7 @@ export default function ChannelList() {
                                     }
                                     <h1 className='font-semibold text-[13px] mt-1'><span className='uppercase'>{numeral(channelDetails.statistics.videoCount).format("0.a")}</span> Videos</h1>
                                 </div>
-                                <div className="channel-description font-medium text-[12px] my-2 text-gray-600">{channelDetails.snippet.localized.description}</div>
+                                <div className="channel-description font-medium text-[12px] my-2 text-gray-600 md:me-5">{channelDetails.snippet.localized.description.slice(0, 100) ? channelDetails.snippet.localized.description.slice(0, 150) : channelDetails.snippet.localized.description.slice(0,)}</div>
                             </div>
                             <div className="channel-section-3 ms-auto mt-5 md:mt-0">
                                 <div className="flex flex-nowrap items-center justify-center md:justify-start gap-2">

@@ -10,12 +10,14 @@ import numeral from 'numeral'
 // React Router DOM
 import { useParams } from 'react-router-dom'
 
+// const apiKey = import.meta.env.VITE_REACT_APP_API_KEY;
+const apiKey = "AIzaSyB2TyOIvEfr8mzHMTQ6IP-Z5iOlrENlCDU";
+
 export default function WatchItem(props) {
     const { video_id } = useParams()
     // ChannelIcon Handling
     const [channelDetails, setChannelDetails] = useState([]);
     async function handleChannelDetails() {
-        const apiKey = import.meta.env.VITE_REACT_APP_API_KEY;
         const url = `https://www.googleapis.com/youtube/v3/channels?part=snippet%2CcontentDetails%2Cstatistics&id=${props.videoDetails.snippet.channelId}&key=${apiKey}`;
         const request = await fetch(url);
         const response = await request.json();
@@ -27,11 +29,25 @@ export default function WatchItem(props) {
     }, [video_id])
 
 
+
     // Handle Comment Section =========================
     const [toggleComment, setToggleComment] = useState(false);
     function handleToggleComment() {
         setToggleComment((value) => !value)
     }
+
+    // Fetching Comments -------------------------------
+    async function fetchCommetsArray() {
+        const url = `https://youtube.googleapis.com/youtube/v3/commentThreads?part=snippet%2Creplies&videoId=${video_id}&key=${apiKey}`
+        const fetching = fetch(url)
+        const request = await fetching;
+        const response = await request.json();
+        console.log("Comment Array : ", response);
+    }
+
+    useEffect(() => {
+        fetchCommetsArray();
+    }, [video_id])
 
 
     return (

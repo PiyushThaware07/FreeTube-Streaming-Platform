@@ -73,13 +73,13 @@ export default function ChannelVideo() {
               (
                 videoArray.items.map((video, index) => (
                   <div className="channel-video-card p-2 mb-3" key={index}>
-                    <Link to={`/watch/${video.id.videoId}`}>
+                    <Link to={`/main/watch/${video.id.videoId}`}>
                       <div className="video-thumbnail h-[150px] w-full bg-slate-100 rounded-2xl relative mb-3" style={{ backgroundImage: `url('${video.snippet.thumbnails.high.url ? video.snippet.thumbnails.high.url : video.snippet.thumbnails.default.url}')`, backgroundSize: "cover", backgroundRepeat: "no-repeat", backgroundPosition: "center" }}>
                         <div className="absolute bottom-3 right-3 bg-black text-white font-medium text-[11px] p-1 rounded-sm tracking-[1px]"> {duration[video.id.videoId] || "00:00"}</div>
                       </div>
                     </Link>
 
-                    <Link to={`/watch/${video.id.videoId}`} className='font-semibold text-sm'>{video.snippet.title.slice(0, 35)}</Link>
+                    <Link to={`/main/watch/${video.id.videoId}`} className='font-semibold text-sm'>{video.snippet.title.slice(0, 35)}</Link>
                     <h1 className='font-semibold text-[12px] text-gray-600'>
                       <span className='uppercase'>
                         {viewCount[video.id.videoId] || "0"}</span> views .
@@ -89,9 +89,6 @@ export default function ChannelVideo() {
               )
               : "Loading..."
           }
-
-
-
         </div>
       </div>
     </>

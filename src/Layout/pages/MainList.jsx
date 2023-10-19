@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setVideos } from '../../Redux/Slices/VideoSlice';
-import Video from '../components/Video'
+import MainItem from './MainItem';
 
 export default function MainList() {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ export default function MainList() {
         {
           videos.map((video) => {
             return (
-              <Video key={video.id} videoID={video.id} videoContentDetails={video.contentDetails} videoSnippet={video.snippet} videoStatistics={video.statistics} />
+              <MainItem key={video.id} videoID={video.id} videoContentDetails={video.contentDetails} videoSnippet={video.snippet} videoStatistics={video.statistics} />
             )
           })
         }

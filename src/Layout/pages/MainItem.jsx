@@ -45,7 +45,7 @@ export default function Video(props) {
 
     return (
         <div className="video-card p-5">
-            <Link to={`/watch/${props.videoID}/`} >
+            <Link to={`watch/${props.videoID}/`} >
                 <div
                     className="video-thumbnail h-[180px] rounded-xl hover:rounded-none relative"
                     style={{
@@ -60,7 +60,7 @@ export default function Video(props) {
             </Link>
 
             <div className="video-content flex flex-nowrap items-start flex-1 mt-3">
-                <Link to={`/channel/${props.videoSnippet.channelId}`}
+                <Link to={`channel/${props.videoSnippet.channelId}`}
                     className="video-channel-thumbnail h-[40px] w-[40px] rounded-full ms-2"
                     style={{
                         backgroundImage: `url('${channelIcon || ''}')`,

@@ -13,6 +13,8 @@ import { useDispatch, useSelector } from 'react-redux'
 // Redux
 import { setVideos } from '../../Redux/Slices/VideoSlice'
 
+// const ApiKey = import.meta.env.VITE_REACT_APP_API_KEY;
+const ApiKey = 'AIzaSyB2TyOIvEfr8mzHMTQ6IP-Z5iOlrENlCDU';
 export default function WatchList() {
     const [videoDetails, setVideoDetails] = useState(null)
     // Handling Url
@@ -20,7 +22,6 @@ export default function WatchList() {
     // Fetching Video Detail
     async function fetchDetails() {
         try {
-            const ApiKey = import.meta.env.VITE_REACT_APP_API_KEY;
             const url = `https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&id=${video_id}&key=${ApiKey}`;
             const fetching = fetch(url);
             const request = await fetching;
@@ -43,7 +44,6 @@ export default function WatchList() {
 
     async function fetchVideos() {
         try {
-            const apiKey = import.meta.env.VITE_REACT_APP_API_KEY;
             const url = `https://www.googleapis.com/youtube/v3/videos?part=snippet%2CcontentDetails%2Cstatistics&chart=mostPopular&maxResults=100&regionCode=US&key=${apiKey}`;
             const response = await fetch(url);
             const data = await response.json();
