@@ -10,8 +10,7 @@ import numeral from 'numeral'
 // React Router DOM
 import { useParams } from 'react-router-dom'
 
-// const apiKey = import.meta.env.VITE_REACT_APP_API_KEY;
-const apiKey = "AIzaSyB2TyOIvEfr8mzHMTQ6IP-Z5iOlrENlCDU";
+const apiKey = import.meta.env.VITE_REACT_APP_API_KEY;
 
 export default function WatchItem(props) {
     const { video_id } = useParams()

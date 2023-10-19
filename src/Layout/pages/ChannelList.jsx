@@ -4,7 +4,7 @@ import { useNavigate, Outlet, useParams } from 'react-router-dom';
 import numeral from 'numeral';
 
 
-const ApiKey = "AIzaSyB2TyOIvEfr8mzHMTQ6IP-Z5iOlrENlCDU";
+const ApiKey = import.meta.env.VITE_REACT_APP_API_KEY;
 // Navigator
 const navLinks = ["Videos", "Playlist", "About", "Home", "Shorts"]
 export default function ChannelList() {

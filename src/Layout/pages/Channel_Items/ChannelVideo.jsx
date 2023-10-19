@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 
-const ApiKey = "AIzaSyB2TyOIvEfr8mzHMTQ6IP-Z5iOlrENlCDU";
+const ApiKey = import.meta.env.VITE_REACT_APP_API_KEY;
 
 export default function ChannelVideo() {
   const { channel_id } = useParams();

@@ -11,6 +11,11 @@ import { useNavigate } from 'react-router-dom';
 
 export default function LoginPage() {
   const navigate = useNavigate();
+
+  // Store data in session storage
+  function storeDataInSessionStorage(key, data) {
+    sessionStorage.setItem(key, JSON.stringify(data));
+  }
   return (
     <>
       <div className="login-main h-screen w-screen bg-white flex flex-nowrap items-center justify-center" style={{ backgroundImage: `url('${bgImage}')`, backgroundRepeat: "no-repeat", backgroundPosition: "center", backgroundSize: "cover" }}>
@@ -20,6 +25,9 @@ export default function LoginPage() {
             onSuccess={credentialResponse => {
               var credentialResponseDecoded = jwtDecode(credentialResponse.credential);
               console.log(credentialResponseDecoded);
+              // Store data in session storage
+              const email = credentialResponseDecoded.picture;
+              storeDataInSessionStorage('username', email);
 
               const dataToSend = {
                 picture: credentialResponseDecoded.picture, // Replace with your data

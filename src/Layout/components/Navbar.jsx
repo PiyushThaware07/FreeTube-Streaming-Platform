@@ -27,6 +27,7 @@ export default function Navbar(props) {
   const receivedData = location.state;
 
 
+
   return (
     <>
       <div className="navbar-main flex flex-nowrap items-center justify-between bg-white px-3 sm:px-8 py-3 relative z-50 shadow-sm" style={{ fontFamily: "'Poppins', sans-serif" }}>

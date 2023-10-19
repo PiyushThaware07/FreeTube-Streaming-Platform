@@ -13,8 +13,7 @@ import { useDispatch, useSelector } from 'react-redux'
 // Redux
 import { setVideos } from '../../Redux/Slices/VideoSlice'
 
-// const ApiKey = import.meta.env.VITE_REACT_APP_API_KEY;
-const ApiKey = 'AIzaSyB2TyOIvEfr8mzHMTQ6IP-Z5iOlrENlCDU';
+const ApiKey = import.meta.env.VITE_REACT_APP_API_KEY;
 export default function WatchList() {
     const [videoDetails, setVideoDetails] = useState(null)
     // Handling Url
