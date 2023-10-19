@@ -6,7 +6,7 @@ import numeral from 'numeral';
 
 const ApiKey = import.meta.env.VITE_REACT_APP_API_KEY;
 // Navigator
-const navLinks = ["Videos", "Playlist", "About", "Home", "Shorts"]
+const navLinks = ["About", "Videos", "Playlist", "Shorts"]
 export default function ChannelList() {
     const navigate = useNavigate();
     // Handle navigation when the buttons are clicked

@@ -15,6 +15,7 @@ import LoginPage from './Layout/pages/LoginPage';
 import ChannelList from './Layout/pages/ChannelList';
 import ChannelPlaylist from './Layout/pages/Channel_Items/ChannelPlaylist';
 import ChannelVideo from './Layout/pages/Channel_Items/ChannelVideo';
+import ChannelAbout from './Layout/pages/Channel_Items/ChannelAbout';
 
 export default function App() {
   const [toggleSidebar, setToggleSidebar] = useState(false);
@@ -48,9 +49,10 @@ export default function App() {
             <Route path='watch/:video_id' element={<WatchList />} />
 
             <Route path='channel/:channel_id/*' element={<ChannelList />}>
-              <Route index element={<ChannelPlaylist />} path='playlist' />
-              <Route index element={<ChannelVideo />} path='videos' />
-              {/* Add more routes related to the channel if needed */}
+              <Route index element={<ChannelAbout />} path='about' />
+              <Route element={<ChannelVideo />} path='videos' />
+              <Route element={<ChannelPlaylist />} path='playlist' />
+
             </Route>
           </Route>
 
