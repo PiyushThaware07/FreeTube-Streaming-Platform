@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { LuShare2 } from "react-icons/lu"
 import { FaRegThumbsUp, FaRegThumbsDown } from "react-icons/fa"
 import { AiOutlineDownCircle, AiOutlineUpCircle } from "react-icons/ai"
+import { BsFillCaretDownFill, BsFillCaretUpFill } from "react-icons/bs"
 // Library
 import ReactShowMoreText from 'react-show-more-text'
 import moment from 'moment'
@@ -31,8 +32,12 @@ export default function WatchItem(props) {
 
     // Handle Comment Section =========================
     const [toggleComment, setToggleComment] = useState(false);
+    const [toggleReply, setToggleReply] = useState(false);
     function handleToggleComment() {
         setToggleComment((value) => !value)
+    }
+    function handleToggleReply() {
+        setToggleReply((value) => !value)
     }
 
     // Fetching Comments -------------------------------
@@ -129,6 +134,17 @@ export default function WatchItem(props) {
                                         <div className="">
                                             <h1 className='text-sm font-[600]'>@username <span className='ms-3 text-[10px] font-normal'>1 Month Ago</span> </h1>
                                             <small className='text-[12px]'>User comment : Lorem ipsum dolor sit amet consectetur adipisicing elit.Eos veniam dolores repellat aspernatur officia.</small>
+                                            <br />
+                                            <div className="ms-3">
+                                                <button className='text-[13px] font-semibold px-5 py-3 my-3 rounded-full text-blue-600 hover:bg-blue-200 flex flex-nowrap items-center gap-2' onClick={() => handleToggleReply()}>{toggleReply ? (<BsFillCaretUpFill />) : (<BsFillCaretDownFill />)}<span>1 reply</span></button>
+                                                <div className={`${toggleReply ? "flex" : "hidden"} flex-nowrap items-start gap-3`}>
+                                                    <div className="mt-1 user-profile h-[40px] w-[40px] p-6 bg-slate-700 rounded-full"></div>
+                                                    <div className="">
+                                                        <h1 className='text-sm font-[600]'>@username <span className='ms-3 text-[10px] font-normal'>1 Month Ago</span> </h1>
+                                                        <p className='text-[12px]'>User Reply : Lorem ipsum dolor sit amet consectetur adipisicing elit.Eos veniam dolores repellat aspernatur officia.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
 
@@ -139,6 +155,17 @@ export default function WatchItem(props) {
                                             <div className="">
                                                 <h1 className='text-sm font-[600]'>@username <span className='ms-3 text-[10px] font-normal'>1 Month Ago</span> </h1>
                                                 <small className='text-[12px]'>User comment : Lorem ipsum dolor sit amet consectetur adipisicing elit.Eos veniam dolores repellat aspernatur officia.</small>
+                                                <br />
+                                                <div className="ms-3">
+                                                    <button className='text-[13px] font-semibold px-5 py-3 my-3 rounded-full text-blue-600 hover:bg-blue-200 flex flex-nowrap items-center gap-2' onClick={() => handleToggleReply()}>{toggleReply ? (<BsFillCaretUpFill />) : (<BsFillCaretDownFill />)}<span>1 reply</span></button>
+                                                    <div className={`${toggleReply ? "flex" : "hidden"} flex-nowrap items-start gap-3`}>
+                                                        <div className="mt-1 user-profile h-[40px] w-[40px] p-6 bg-slate-700 rounded-full"></div>
+                                                        <div className="">
+                                                            <h1 className='text-sm font-[600]'>@username <span className='ms-3 text-[10px] font-normal'>1 Month Ago</span> </h1>
+                                                            <p className='text-[12px]'>User Reply : Lorem ipsum dolor sit amet consectetur adipisicing elit.Eos veniam dolores repellat aspernatur officia.</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
